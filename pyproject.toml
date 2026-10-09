@@ -1,0 +1,20 @@
+[project]
+name = "act-showcase"
+version = "0.1.0"
+description = "Package to showcase cool tools"
+readme = "README.md"
+authors = [
+    { name = "rspacerr" }
+]
+requires-python = ">=3.15"
+dependencies = []
+
+[project.scripts]
+act-showcase = "act_showcase:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = []

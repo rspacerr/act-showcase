@@ -1,0 +1,57 @@
+name: CI
+
+# Runs on every PR targeting main, plus pushes to main.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          version: "latest"
+
+      - name: Install runtime dep
+        run: |
+          uv sync 
+
+      - name: Run tests
+        run: uv run python -m unittest tests/*.py
+
+      
+  lint:
+    name: Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          version: "latest"
+
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.11'
+      
+      - run: uv sync --all-extras --dev
+
+      - name: Lint 
+        run: |
+          uv run ruff format --check .
+
+      - name: Type Check 
+        run: |
+          uv run ty check .
