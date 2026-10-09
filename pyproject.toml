@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "rspacerr" }
 ]
-requires-python = ">=3.15"
+requires-python = ">=3.8"
 dependencies = []
 
 [project.scripts]
